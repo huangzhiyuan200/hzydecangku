@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.css}">
+    <script th:src="@{/webjars/jquery/3.5.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" src="../vue/vue.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/bootstrap-paginator.js"></script>
+</head>
+<body>
+    <div  class="container">
+        <h1>添加用户</h1>
+        <form class="form-horizontal" th:action="@{/empUpdate}" method="post">
+            <input type="hidden" name="empId" th:value="${emp.empId}" />
+            <div class="form-group">
+                <label for="empName" class="col-sm-2 control-label">编号</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="empName"  id="empName" placeholder="empName" th:value="${emp.empName}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="empType" class="col-sm-2 control-label">名称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="empType"  id="empType" placeholder="empType" th:value="${emp.empType}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="empDate" class="col-sm-2 control-label">价格</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="empDate"  id="empDate" placeholder="empDate" th:value="${emp.empDate}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="empGw" class="col-sm-2 control-label">时间</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" name="empGw"  id="empGw" placeholder="empGw" th:value="${emp.empGw}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="empZz" class="col-sm-2 control-label">支付方法</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="empZz"  id="empZz" placeholder="empZz" th:value="${emp.empZz}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" value="Submit" class="btn btn-info" />
+                    <a th:href="@{/empList}" class="btn btn-info">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

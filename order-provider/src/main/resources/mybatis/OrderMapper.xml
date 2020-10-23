@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.hzy.dao.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.hzy.entity.Order" >
+    <id column="oeder_id" property="oederId" jdbcType="INTEGER" />
+    <result column="order_nh" property="orderNh" jdbcType="VARCHAR" />
+    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
+    <result column="order_price" property="orderPrice" jdbcType="DECIMAL" />
+    <result column="order_date" property="orderDate" jdbcType="TIMESTAMP" />
+    <result column="order_zf" property="orderZf" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    oeder_id, order_nh, order_name, order_price, order_date, order_zf
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where oeder_id = #{oederId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order
+    where oeder_id = #{oederId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.hzy.entity.Order" >
+    insert into t_order (oeder_id, order_nh, order_name, 
+      order_price, order_date, order_zf
+      )
+    values (#{oederId,jdbcType=INTEGER}, #{orderNh,jdbcType=VARCHAR}, #{orderName,jdbcType=VARCHAR}, 
+      #{orderPrice,jdbcType=DECIMAL}, #{orderDate,jdbcType=TIMESTAMP}, #{orderZf,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.hzy.entity.Order" >
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oederId != null" >
+        oeder_id,
+      </if>
+      <if test="orderNh != null" >
+        order_nh,
+      </if>
+      <if test="orderName != null" >
+        order_name,
+      </if>
+      <if test="orderPrice != null" >
+        order_price,
+      </if>
+      <if test="orderDate != null" >
+        order_date,
+      </if>
+      <if test="orderZf != null" >
+        order_zf,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oederId != null" >
+        #{oederId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNh != null" >
+        #{orderNh,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null" >
+        #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderZf != null" >
+        #{orderZf,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.hzy.entity.Order" >
+    update t_order
+    <set >
+      <if test="orderNh != null" >
+        order_nh = #{orderNh,jdbcType=VARCHAR},
+      </if>
+      <if test="orderName != null" >
+        order_name = #{orderName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null" >
+        order_price = #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderZf != null" >
+        order_zf = #{orderZf,jdbcType=INTEGER},
+      </if>
+    </set>
+    where oeder_id = #{oederId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.hzy.entity.Order" >
+    update t_order
+    set order_nh = #{orderNh,jdbcType=VARCHAR},
+      order_name = #{orderName,jdbcType=VARCHAR},
+      order_price = #{orderPrice,jdbcType=DECIMAL},
+      order_date = #{orderDate,jdbcType=TIMESTAMP},
+      order_zf = #{orderZf,jdbcType=INTEGER}
+    where oeder_id = #{oederId,jdbcType=INTEGER}
+  </update>
+
+  <select id="orderList" resultType="Order">
+        select * from t_order as a left join order_type as b on a.order_zf = b.type_id
+  </select>
+
+  <delete id="OrderDelete" parameterType="java.lang.Integer">
+    delete from t_order where oeder_id = #{oederId}
+  </delete>
+
+  <insert id="orderAdd" parameterType="Order">
+    insert into t_order (order_nh,order_name,order_price,order_date,order_zf) values (#{orderNh},#{orderName},#{orderPrice},#{orderDate},#{orderZf})
+  </insert>
+
+  <select id="selectOrderById" resultType="Order" parameterType="java.lang.Integer">
+    select * from t_order where oeder_id = ${oederId}
+  </select>
+
+  <update id="orderUpdate" parameterType="Order">
+    update t_order set order_nh = #{orderNh},order_name = #{orderName},order_price = #{orderPrice},order_date = #{orderDate},order_zf = #{orderZf} where oeder_id = #{oederId}
+  </update>
+</mapper>

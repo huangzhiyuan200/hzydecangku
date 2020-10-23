@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.hzy.dao.EmpMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.hzy.entity.Emp" >
+    <id column="emp_id" property="empId" jdbcType="INTEGER" />
+    <result column="emp_name" property="empName" jdbcType="VARCHAR" />
+    <result column="emp_type" property="empType" jdbcType="VARCHAR" />
+    <result column="emp_date" property="empDate" jdbcType="VARCHAR" />
+    <result column="emp_gw" property="empGw" jdbcType="VARCHAR" />
+    <result column="emp_zz" property="empZz" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    emp_id, emp_name, emp_type, emp_date, emp_gw, emp_zz
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_emp
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_emp
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jk.hzy.entity.Emp" >
+    insert into t_emp (emp_id, emp_name, emp_type, 
+      emp_date, emp_gw, emp_zz
+      )
+    values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, #{empType,jdbcType=VARCHAR}, 
+      #{empDate,jdbcType=VARCHAR}, #{empGw,jdbcType=VARCHAR}, #{empZz,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jk.hzy.entity.Emp" >
+    insert into t_emp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empId != null" >
+        emp_id,
+      </if>
+      <if test="empName != null" >
+        emp_name,
+      </if>
+      <if test="empType != null" >
+        emp_type,
+      </if>
+      <if test="empDate != null" >
+        emp_date,
+      </if>
+      <if test="empGw != null" >
+        emp_gw,
+      </if>
+      <if test="empZz != null" >
+        emp_zz,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empId != null" >
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="empName != null" >
+        #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empType != null" >
+        #{empType,jdbcType=VARCHAR},
+      </if>
+      <if test="empDate != null" >
+        #{empDate,jdbcType=VARCHAR},
+      </if>
+      <if test="empGw != null" >
+        #{empGw,jdbcType=VARCHAR},
+      </if>
+      <if test="empZz != null" >
+        #{empZz,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jk.hzy.entity.Emp" >
+    update t_emp
+    <set >
+      <if test="empName != null" >
+        emp_name = #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empType != null" >
+        emp_type = #{empType,jdbcType=VARCHAR},
+      </if>
+      <if test="empDate != null" >
+        emp_date = #{empDate,jdbcType=VARCHAR},
+      </if>
+      <if test="empGw != null" >
+        emp_gw = #{empGw,jdbcType=VARCHAR},
+      </if>
+      <if test="empZz != null" >
+        emp_zz = #{empZz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jk.hzy.entity.Emp" >
+    update t_emp
+    set emp_name = #{empName,jdbcType=VARCHAR},
+      emp_type = #{empType,jdbcType=VARCHAR},
+      emp_date = #{empDate,jdbcType=VARCHAR},
+      emp_gw = #{empGw,jdbcType=VARCHAR},
+      emp_zz = #{empZz,jdbcType=VARCHAR}
+    where emp_id = #{empId,jdbcType=INTEGER}
+  </update>
+
+  <select id="empList" resultType="Emp">
+    select * from t_emp as a left join emp_type as b on a.emp_type = b.type_id
+  </select>
+
+  <select id="selectEmpById" resultType="Emp" parameterType="java.lang.Integer">
+    select * from t_emp where emp_id = #{empId}
+  </select>
+
+  <insert id="empAdd" parameterType="Emp">
+    insert into t_emp(emp_name,emp_type,emp_date,emp_gw,emp_zz) values(#{empName},#{empType},#{empDate},#{empGw},#{empZz})
+  </insert>
+
+  <delete id="empDelete" parameterType="java.lang.Integer">
+    delete from t_emp where emp_id = #{empId}
+  </delete>
+
+  <update id="empUpdate" parameterType="Emp">
+    update t_emp set emp_name = #{empName},emp_type = #{empType},emp_date = #{empDate},emp_gw = #{empGw},emp_zz = #{empZz} where emp_id = #{empId}
+  </update>
+</mapper>
